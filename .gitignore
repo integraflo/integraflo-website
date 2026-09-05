@@ -1,0 +1,32 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+credentials*
+secrets*
+
+# Common dependency/build artifacts if introduced later
+node_modules/
+dist/
+build/
+.cache/
+
+# Terraform / cloud state must never live in this public website repo
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl

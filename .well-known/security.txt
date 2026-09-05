@@ -1,0 +1,5 @@
+Contact: mailto:michael@integraflo.com
+Expires: 2027-09-05T00:00:00Z
+Preferred-Languages: en
+Canonical: https://integraflo.com/.well-known/security.txt
+Policy: https://github.com/integraflo/integraflo-website/blob/main/SECURITY.md
