@@ -6,6 +6,18 @@
   var choice = null;
   try { choice = localStorage.getItem(key); } catch (error) { /* Choice remains session-only when storage is unavailable. */ }
 
+  function clearAnalyticsCookies() {
+    ['_ga', '_ga_' + measurementId.slice(2)].forEach(function (name) {
+      document.cookie = name + '=; Max-Age=0; Path=/';
+      document.cookie = name + '=; Max-Age=0; Path=/; Domain=' + location.hostname;
+      if (location.hostname.slice(0, 4) === 'www.') {
+        document.cookie = name + '=; Max-Age=0; Path=/; Domain=' + location.hostname.slice(4);
+      }
+    });
+  }
+
+  if (choice !== 'allow') clearAnalyticsCookies();
+
   function startAnalytics() {
     if (started) return;
     started = true;
@@ -14,8 +26,11 @@
     window.gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     window.gtag('consent', 'update', { analytics_storage: 'granted' });
     window.gtag('js', new Date());
+    var referrerOrigin = '';
+    try { if (document.referrer) referrerOrigin = new URL(document.referrer).origin; } catch (error) { /* Ignore malformed referrers. */ }
     window.gtag('config', measurementId, {
       page_location: location.origin + location.pathname,
+      page_referrer: referrerOrigin,
       allow_google_signals: false,
       allow_ad_personalization_signals: false
     });
@@ -35,7 +50,11 @@
     var banner = document.getElementById('analytics-banner');
     if (banner) banner.remove();
     if (value === 'allow') startAnalytics();
-    else if (started) location.reload();
+    else {
+      if (started) window.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      clearAnalyticsCookies();
+      if (started) location.reload();
+    }
   }
 
   function showChoices() {
