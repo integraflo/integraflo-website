@@ -22,7 +22,7 @@ Public frontend code must never be trusted to protect a secret. Any future API, 
 
 ## Current architecture
 
-The production site is intentionally static and currently uses no browser JavaScript, forms, database access, authentication or third-party runtime scripts. This low-complexity architecture is a security control and should be preserved unless a feature has a clear business need.
+The production site is intentionally static. It uses a small browser-side JavaScript file to manage visitor analytics choices. The Google Analytics 4 tag is loaded only after a visitor allows analytics. The site has no public contact form, application database, user authentication or site-specific backend API. Keep this architecture simple and introduce additional dynamic features only for a clear business need.
 
 ## Future dynamic features
 
@@ -42,4 +42,4 @@ Before enabling public lead capture or an AI assistant, require at minimum:
 
 ## Reporting a vulnerability
 
-Please report suspected security issues privately by email to security@integraflo.com if that mailbox is active, otherwise michael@integraflo.com. Do not include passwords, access tokens, private keys or sensitive client data in the initial report.
+Please report suspected security issues privately by email to michael@integraflo.com. Do not include passwords, access tokens, private keys or sensitive client data in the initial report.
